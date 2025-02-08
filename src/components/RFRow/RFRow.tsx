@@ -17,7 +17,7 @@ export type RFRowProps = {
 export default function RFRow({size = 12, gap = 1, ...rest}: RFRowProps){
 
     function renderFields(){
-        return rest.fields.map(field => <RFField {...field} />)
+        return rest.fields.map((field, index) => <RFField key={index} {...field} />)
     }
 
     if(rest.customComponent){

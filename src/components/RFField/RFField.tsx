@@ -1,5 +1,6 @@
 import { Field, Input, Label, Select } from "@headlessui/react"
 import type {_internal_ComponentInput, _internal_ComponentSelect} from "@headlessui/react"
+import { useFormContext } from "react-hook-form";
 
 type Option = {
     value: string;
@@ -7,19 +8,21 @@ type Option = {
 }
 
 export type RFFieldProps = {
-    label: string
+    label: string;
+    name: string;
 } & ({
     variant: "input";
-    props?: _internal_ComponentInput;
+    props?: Omit<_internal_ComponentInput, "name">;
     options?: never;
 } | {
     variant: "select";
-    props?: _internal_ComponentSelect
+    props?: Omit<_internal_ComponentSelect, "name">;
     options: Option[]
 })
 
-export default function RFField({variant, label, props, options}: RFFieldProps){
+export default function RFField({variant, label, name, props, options}: RFFieldProps){
    
+    const {register} = useFormContext()
 
     function renderLabel(){
         return <Label>{label}</Label>
@@ -37,7 +40,10 @@ export default function RFField({variant, label, props, options}: RFFieldProps){
 
     return <Field className="flex flex-col items-start">
        {renderLabel()}
-       <Input className="rounded w-full border" type="text" {...props} />
+       <Input 
+       {...register(name)}
+       className="rounded w-full border" 
+       type="text" {...props} />
        </Field>
 
 }

@@ -1,19 +1,22 @@
 import RFRow, { RFRowProps } from "../RFRow/RFRow"
 import RFSubmit, { RFSubmitProps } from "../RFSubmit/RFSubmit"
-import {useForm} from "react-hook-form"
+import {FieldValues, FormProvider, SubmitHandler, useForm} from "react-hook-form"
 
 type FormProps = {
     form: RFRowProps[]
-    onSubmit: () => void
+    onSubmit: SubmitHandler<FieldValues>
     submit?: RFSubmitProps
 }
 
 export default function RFForm({form, submit, onSubmit}: FormProps){
 
-    const {handleSubmit} = useForm({defaultValues: {}})
+    const methods = useForm({defaultValues: {}});
+    const {handleSubmit} = methods
 
-    return <form onSubmit={handleSubmit(onSubmit)}>
-        {form.map(rowProps => <RFRow {...rowProps} />)}
-        {(form.length > 0 || submit?.label) && <RFSubmit {...submit} />}
+    return <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+        {form.map((rowProps, index) => <RFRow key={index} {...rowProps} />)}
+        {form.length > 0 && <RFSubmit {...submit} />}
         </form>
+    </FormProvider>
 }
