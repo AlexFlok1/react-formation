@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 type Option = {
     value: string;
-    label: string;
+    label?: string;
 }
 
 export type RFFieldProps = {
@@ -32,13 +32,15 @@ export default function RFField({variant, label, name, props, options}: RFFieldP
     if(variant === "select"){
         return <Field className="flex items-start items-start">
                {renderLabel()}
-               <Select {...props}>
-                {options.map(option => <option value={option.value} key={option.value}>{option.label}</option>)}
+               <Select 
+                {...register(name)}
+               {...props}>
+                {options.map(option => <option value={option.value} key={option.value}>{option.label ?? option.value}</option>)}
                </Select>
                </Field>
     }
 
-    return <Field className="flex flex-col items-start">
+    return <Field className="">
        {renderLabel()}
        <Input 
        {...register(name)}

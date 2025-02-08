@@ -7,14 +7,16 @@ type NumberRange<N extends number, Result extends number[] = []> =
     : NumberRange<N, [...Result, Result['length']]>;
 
 export type RFRowProps = {
-    size?: NumberRange<13>
-    gap?: NumberRange<9>,
+    size?: NumberRange<7>
+    gap?: NumberRange<12>,
     className?: string;
     customComponent?:ElementType,
     fields: RFFieldProps[]
 }
 
-export default function RFRow({size = 12, gap = 1, ...rest}: RFRowProps){
+export default function RFRow({size = 6, gap = 4, ...rest}: RFRowProps){
+
+    const classes = ["grid", `grid-cols-${size}`, `gap-${gap}`]
 
     function renderFields(){
         return rest.fields.map((field, index) => <RFField key={index} {...field} />)
@@ -25,7 +27,7 @@ export default function RFRow({size = 12, gap = 1, ...rest}: RFRowProps){
        return <CustomRowComponent>{renderFields()}</CustomRowComponent>
     }
 
-    return <div style={{display: "flex", gap: `${gap * 8}px`, width: `${size * 8.3}`, padding: '0.2%'}} className={rest.className} >
+    return <div className={`${classes.join(" ")} ${rest.className ?? ""}`} >
         {renderFields()}
     </div>
 }
