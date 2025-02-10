@@ -27,6 +27,12 @@ function App() {
                 name: "test3",
                 label: "Test3",
               },
+              {
+                variant: "select",
+                name: "test4",
+                label: "Test4",
+                options: [{ value: "Test1" }, { value: "Test2" }],
+              },
             ],
           },
         ]}

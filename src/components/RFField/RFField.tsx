@@ -1,5 +1,4 @@
 import { Field, Input, Label, Select } from "@headlessui/react";
-import type { _internal_ComponentInput, _internal_ComponentSelect } from "@headlessui/react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
 type Option = {
@@ -16,24 +15,15 @@ export type RFFieldProps = {
 } & (
   | {
       variant: "input";
-      props?: Omit<_internal_ComponentInput, "name">;
       options?: never;
     }
   | {
       variant: "select";
-      props?: Omit<_internal_ComponentSelect, "name">;
       options: Option[];
     }
 );
 
-export default function RFField({
-  variant,
-  label,
-  name,
-  props,
-  options,
-  validation = { required: false },
-}: RFFieldProps) {
+export default function RFField({ variant, label, name, options, validation = { required: false } }: RFFieldProps) {
   const { register } = useFormContext();
 
   function renderLabel() {
@@ -44,7 +34,7 @@ export default function RFField({
     return (
       <Field className="flex flex-col items-start">
         {renderLabel()}
-        <Select {...register(name, { ...(validation ?? {}) })} {...props}>
+        <Select className="rounded w-full border h-[26px]" {...register(name, { ...(validation ?? {}) })}>
           {options.map((option) => (
             <option value={option.value} key={option.value}>
               {option.label ?? option.value}
@@ -58,7 +48,7 @@ export default function RFField({
   return (
     <Field className="flex flex-col items-start">
       {renderLabel()}
-      <Input {...register(name, { ...(validation ?? {}) })} className="rounded w-full border" type="text" {...props} />
+      <Input {...register(name, { ...(validation ?? {}) })} className="rounded w-full border h-[26px]" type="text" />
     </Field>
   );
 }
