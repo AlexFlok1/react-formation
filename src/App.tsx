@@ -12,7 +12,10 @@ function App() {
                 variant: "input",
                 name: "test1",
                 label: "Test1",
-                required: true,
+                validation: {
+                  required: true,
+                  max: 5,
+                },
               },
               {
                 variant: "input",
