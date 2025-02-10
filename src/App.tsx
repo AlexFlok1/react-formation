@@ -1,36 +1,41 @@
-import './App.css'
-import RFForm from './components/RFForm/RFForm'
-
+import "./App.css";
+import RFForm from "./components/RFForm/RFForm";
 
 function App() {
-
-
   return (
     <>
-      <RFForm form={[
-        {
-          fields: [{
-            variant: "input",
-            name: "test1",
-            label: "Test1"
-          },
+      <RFForm
+        form={[
           {
-            variant: "input",
-            name: "test2",
-            label: "Test2"
+            fields: [
+              {
+                variant: "input",
+                name: "test1",
+                label: "Test1",
+                required: true,
+              },
+              {
+                variant: "input",
+                name: "test2",
+                label: "Test2",
+              },
+              {
+                variant: "input",
+                name: "test3",
+                label: "Test3",
+              },
+            ],
           },
-          {
-            variant: "input",
-            name: "test3",
-            label: "Test3"
-          }
-        ]
-        }
-        ]} onSubmit={(values) => {
-          console.log(values)
-        }} />
+        ]}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+        onError={(errors) => {
+          console.log(errors);
+        }}
+      />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
