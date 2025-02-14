@@ -8,16 +8,11 @@ type Option = {
 };
 
 type FieldValidation = Pick<RegisterOptions, "required" | "min" | "max" | "validate">;
-type ErrorSettings = {
-  message?: string;
-  showOnChange?: boolean;
-};
 
 export type RFFieldProps = {
   label: string;
   name: string;
   validation?: FieldValidation;
-  errorSettings?: ErrorSettings;
 } & (
   | {
       variant: "input";
@@ -29,14 +24,7 @@ export type RFFieldProps = {
     }
 );
 
-export default function RFField({
-  variant,
-  label,
-  name,
-  options,
-  validation = { required: false },
-  errorSettings = { showOnChange: true },
-}: RFFieldProps) {
+export default function RFField({ variant, label, name, options, validation = { required: false } }: RFFieldProps) {
   const {
     register,
     formState: { errors },
@@ -44,13 +32,13 @@ export default function RFField({
 
   const fieldClasses = ["rounded", "w-full", "border", "h-[26px]", "outline-none"];
 
-  if (errorSettings.showOnChange && errors[name]) {
+  if (errors[name]) {
     fieldClasses.push(...["border-red-400"]);
   }
 
   function renderLabel() {
     const classes = [];
-    if (errorSettings.showOnChange && errors[name]) {
+    if (errors[name]) {
       classes.push("text-red-400");
     }
 
@@ -59,10 +47,14 @@ export default function RFField({
 
   function renderErrorMsg() {
     const classes = ["text-xs"];
-    if (errorSettings.showOnChange && errors[name]) {
+    if (errors[name]) {
       classes.push("text-red-400");
     }
-    return <Description className={classes.join(" ")}>{defaultErrorMessages(errors[name]?.type, name)}</Description>;
+    return (
+      <Description className={classes.join(" ")}>
+        {defaultErrorMessages(String(errors[name]?.type ?? "custom"), name)}
+      </Description>
+    );
   }
 
   if (variant === "select") {
@@ -76,6 +68,7 @@ export default function RFField({
             </option>
           ))}
         </Select>
+        {errors[name] && renderErrorMsg()}
       </Field>
     );
   }
@@ -84,7 +77,7 @@ export default function RFField({
     <Field className="flex flex-col items-start">
       {renderLabel()}
       <Input {...register(name, { ...(validation ?? {}) })} className={fieldClasses.join(" ")} type="text" />
-      {errorSettings.showOnChange && errors[name] && renderErrorMsg()}
+      {errors[name] && renderErrorMsg()}
     </Field>
   );
 }
