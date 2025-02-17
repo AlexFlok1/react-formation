@@ -3,6 +3,7 @@ import RFSubmit, { RFSubmitProps } from "../RFSubmit/RFSubmit";
 import { FieldValues, FormProvider, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { generateRowSchema } from "../../services/generateSchema";
 
 type FormProps = {
   form: RFRowProps[];
@@ -12,7 +13,11 @@ type FormProps = {
 };
 
 export default function RFForm({ form, submit, onSubmit, onError }: FormProps) {
-  const methods = useForm({ defaultValues: {} });
+  const generatedSchema = yup.object().shape({
+    ...form.map((row) => generateRowSchema(row)).reduce((newObj, el) => ({ ...newObj, ...el }), {}),
+  });
+
+  const methods = useForm({ defaultValues: {}, resolver: yupResolver(generatedSchema) });
   const { handleSubmit } = methods;
 
   return (
