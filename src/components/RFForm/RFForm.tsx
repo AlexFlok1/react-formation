@@ -1,6 +1,8 @@
 import RFRow, { RFRowProps } from "../RFRow/RFRow";
 import RFSubmit, { RFSubmitProps } from "../RFSubmit/RFSubmit";
 import { FieldValues, FormProvider, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 type FormProps = {
   form: RFRowProps[];
