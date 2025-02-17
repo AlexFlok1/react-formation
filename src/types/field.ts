@@ -37,4 +37,4 @@ type FieldSetup =
       options: Option[];
     };
 
-export type { FieldVariant, FieldSetup };
+export type { FieldVariant, FieldSetup, StringValidation };
