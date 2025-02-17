@@ -1,4 +1,4 @@
-import { Description, Field, Input, Label, Select } from "@headlessui/react";
+import { Description, Field, Input, Label, Select, Textarea } from "@headlessui/react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import defaultErrorMessages from "../../services/defaultErrorMessages";
 
@@ -16,21 +16,51 @@ export type RFFieldProps = {
 } & (
   | {
       variant: "input";
+      rows?: never;
+      cols?: never;
+      allowResize?: never;
+      options?: never;
+    }
+  | {
+      variant: "textarea";
+      rows?: number;
+      cols?: number;
+      allowResize?: boolean;
       options?: never;
     }
   | {
       variant: "select";
+      rows?: never;
+      cols?: never;
+      allowResize?: never;
       options: Option[];
     }
 );
 
-export default function RFField({ variant, label, name, options, validation = { required: false } }: RFFieldProps) {
+export default function RFField({
+  variant,
+  label,
+  name,
+  options,
+  validation = { required: false },
+  rows = 3,
+  cols,
+  allowResize = true,
+}: RFFieldProps) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const fieldClasses = ["rounded", "w-full", "border", "h-[26px]", "outline-none"];
+  const fieldClasses = ["rounded", "w-full", "border", "outline-none"];
+
+  if (variant !== "textarea") {
+    fieldClasses.push("h-[26px]");
+  }
+
+  if (!allowResize && variant === "textarea") {
+    fieldClasses.push("resize-none");
+  }
 
   if (errors[name]) {
     fieldClasses.push(...["border-red-400"]);
@@ -76,7 +106,17 @@ export default function RFField({ variant, label, name, options, validation = { 
   return (
     <Field className="flex flex-col items-start">
       {renderLabel()}
-      <Input {...register(name, { ...(validation ?? {}) })} className={fieldClasses.join(" ")} type="text" />
+      {variant === "input" && (
+        <Input {...register(name, { ...(validation ?? {}) })} className={fieldClasses.join(" ")} type="text" />
+      )}
+      {variant === "textarea" && (
+        <Textarea
+          {...register(name, { ...(validation ?? {}) })}
+          className={fieldClasses.join(" ")}
+          rows={rows}
+          cols={cols}
+        />
+      )}
       {errors[name] && renderErrorMsg()}
     </Field>
   );

@@ -38,7 +38,8 @@ function App() {
           {
             fields: [
               {
-                variant: "input",
+                variant: "textarea",
+                allowResize: false,
                 name: "test5",
                 label: "Test5",
               },
