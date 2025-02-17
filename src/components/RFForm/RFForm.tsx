@@ -4,9 +4,13 @@ import { FieldValues, FormProvider, SubmitErrorHandler, SubmitHandler, useForm }
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { generateRowSchema } from "../../services/generateSchema";
+import { ElementType } from "react";
+
+type Slots = Partial<Record<"input" | "textarea" | "select" | "checkbox", ElementType>>;
 
 type FormProps = {
   form: RFRowProps[];
+  slots?: Slots;
   onSubmit: SubmitHandler<FieldValues>;
   onError?: SubmitErrorHandler<FieldValues>;
   submit?: RFSubmitProps;
