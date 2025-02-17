@@ -35,6 +35,15 @@ function App() {
               },
             ],
           },
+          {
+            fields: [
+              {
+                variant: "input",
+                name: "test5",
+                label: "Test5",
+              },
+            ],
+          },
         ]}
         onSubmit={(values) => {
           console.log(values);
