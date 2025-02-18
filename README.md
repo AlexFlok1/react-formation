@@ -15,9 +15,9 @@ A simple and flexible npm package (currently in beta) that allows you to generat
 
 Install the package via npm (coming soon):
 
-````bash
+```bash
 npm install react-formation
-
+```
 
 ## 📄 Example Usage
 
@@ -60,5 +60,4 @@ Define the form fields and validation rules in a JSON format. For instance:
     }
   ]
 }
-
-````
+```
