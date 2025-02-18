@@ -1,51 +1,64 @@
-# React + TypeScript + Vite
+# Form Builder NPM Package (Beta)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and flexible npm package (currently in beta) that allows you to generate forms dynamically using JSON. Easily create forms without writing any HTML or JSX by defining form fields and validation in a JSON format.
 
-Currently, two official plugins are available:
+## ⚡ Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Generate forms dynamically** with just a JSON configuration.
+- **Customizable field types**, including inputs, textareas, select boxes, etc.
+- **Supports validation** through schema-based rules.
+- **Lightweight and easy to use**.
 
-## Expanding the ESLint configuration
+  _(Currently in early beta - some features may be experimental)_
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Installation
 
-- Configure the top-level `parserOptions` property like this:
+Install the package via npm (coming soon):
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+````bash
+npm install react-formation
+
+
+## 📄 Example Usage
+
+This example demonstrates how to use the form generator.
+
+### 1. Create a JSON Configuration:
+
+Define the form fields and validation rules in a JSON format. For instance:
+
+```json
+{
+  "fields": [
+    {
+      "variant": "input",
+      "name": "username",
+      "label": "Username",
+      "validation": {
+        "required": "Username is required",
+        "min": 3,
+        "max": 20
+      }
     },
-  },
-})
-```
+    {
+      "variant": "input",
+      "name": "email",
+      "label": "Email",
+      "validation": {
+        "required": "Email is required",
+        "matches": "^\\S+@\\S+\\.\\S+$"
+      }
+    },
+    {
+      "variant": "select",
+      "name": "role",
+      "label": "Role",
+      "options": [
+        { "value": "admin", "label": "Admin" },
+        { "value": "user", "label": "User" }
+      ]
+    }
+  ]
+}
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
->>>>>>> 30fa3d5 (added basic components; wip: styling)
+````
