@@ -63,7 +63,7 @@ export default function RFField({ variant, label, name, allowResize, ...rest }: 
       case "textarea":
         return <RFTextArea name={name} fieldClasses={fieldClasses} {...rest} />;
       case "select":
-        return <RFSelect name={name} {...rest} />;
+        return <RFSelect name={name} fieldClasses={fieldClasses} {...rest} />;
       case "checkbox":
         return <RFCheckbox name={name} {...rest} />;
     }

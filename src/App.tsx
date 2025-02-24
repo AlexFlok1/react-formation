@@ -37,6 +37,9 @@ function App() {
                 variant: "checkbox",
                 name: "test6",
                 label: "Test6",
+                validation: {
+                  required: true,
+                },
               },
             ],
           },

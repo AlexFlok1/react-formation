@@ -5,16 +5,23 @@ import { useFormContext } from "react-hook-form";
 export type RFCheckboxProps = { defaultValue?: boolean } & RFFieldProps;
 
 export default function RFCheckbox({ name, defaultValue = false }: RFCheckboxProps) {
-  const { register, setValue, watch } = useFormContext();
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   const value = watch(name);
 
-  console.log(value);
+  console.log(errors[name]);
 
   return (
     <Checkbox
       {...register(name)}
-      className="group block size-4 rounded border bg-white data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500"
+      className={`${
+        errors[name] ? "border-red-400" : "border"
+      } group block size-4 border-1 rounded bg-white data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500`}
       defaultChecked={defaultValue}
       onChange={(checked: boolean) => {
         setValue(name, checked);

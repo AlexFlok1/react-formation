@@ -58,4 +58,4 @@ type FieldSetup =
       options?: never;
     };
 
-export type { FieldVariant, FieldSetup, StringValidation, Option, RFFieldProps };
+export type { FieldVariant, FieldSetup, StringValidation, Option, RFFieldProps, GeneralValidation };
