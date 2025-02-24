@@ -19,6 +19,7 @@ Install the package via npm (coming soon):
 ```sh
 npm install react-formation
 ```
+````
 
 ## 📄 Example Usage
 
@@ -70,4 +71,7 @@ function App() {
 
 export default App;
 ```
-````
+
+```
+
+```
