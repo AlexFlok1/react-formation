@@ -1,4 +1,3 @@
-````markdown
 # Form Builder NPM Package (Beta)
 
 A simple and flexible npm package (currently in beta) that allows you to generate forms dynamically using JSON. Easily create forms without writing any HTML or JSX by defining form fields and validation in a JSON format.
@@ -19,7 +18,6 @@ Install the package via npm (coming soon):
 ```sh
 npm install react-formation
 ```
-````
 
 ## 📄 Example Usage
 
@@ -70,6 +68,10 @@ function App() {
 }
 
 export default App;
+```
+
+```
+
 ```
 
 ```
