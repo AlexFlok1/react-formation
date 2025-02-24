@@ -33,6 +33,14 @@ function App() {
                 label: "Test4",
                 options: [{ value: "Test1" }, { value: "Test2" }],
               },
+              {
+                variant: "checkbox",
+                name: "test6",
+                label: "Test6",
+                validation: {
+                  required: true,
+                },
+              },
             ],
           },
           {

@@ -1,3 +1,4 @@
+````markdown
 # Form Builder NPM Package (Beta)
 
 A simple and flexible npm package (currently in beta) that allows you to generate forms dynamically using JSON. Easily create forms without writing any HTML or JSX by defining form fields and validation in a JSON format.
@@ -15,7 +16,7 @@ A simple and flexible npm package (currently in beta) that allows you to generat
 
 Install the package via npm (coming soon):
 
-```bash
+```sh
 npm install react-formation
 ```
 
@@ -23,41 +24,50 @@ npm install react-formation
 
 This example demonstrates how to use the form generator.
 
-### 1. Create a JSON Configuration:
+### Implement the Form Component:
 
-Define the form fields and validation rules in a JSON format. For instance:
+Use the `RFForm` component to generate the form dynamically based on the JSON configuration.
 
-```json
-{
-  "fields": [
-    {
-      "variant": "input",
-      "name": "username",
-      "label": "Username",
-      "validation": {
-        "required": "Username is required",
-        "min": 3,
-        "max": 20
-      }
-    },
-    {
-      "variant": "input",
-      "name": "email",
-      "label": "Email",
-      "validation": {
-        "required": "Email is required",
-        "matches": "^\\S+@\\S+\\.\\S+$"
-      }
-    },
-    {
-      "variant": "select",
-      "name": "role",
-      "label": "Role",
-      "options": [
-        { "value": "admin", "label": "Admin" },
-        { "value": "user", "label": "User" }
-      ]
-    }
-  ]
+```jsx
+import RFForm from "react-formation";
+
+function App() {
+  const formConfig = {
+    fields: [
+      {
+        variant: "input",
+        name: "username",
+        label: "Username",
+        validation: {
+          required: "Username is required",
+          min: 3,
+          max: 20,
+        },
+      },
+      {
+        variant: "input",
+        name: "email",
+        label: "Email",
+        validation: {
+          required: "Email is required",
+          matches: "^\\S+@\\S+\\.\\S+$",
+        },
+      },
+      {
+        variant: "select",
+        name: "role",
+        label: "Role",
+        options: [
+          { value: "admin", label: "Admin" },
+          { value: "user", label: "User" },
+        ],
+      },
+    ],
+  };
+
+  return <RFForm form={formConfig} onSubmit={(values) => console.log(values)} onError={(errors) => console.log(errors)} />;
 }
+
+export default App;
 ```
+````
