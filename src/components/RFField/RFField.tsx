@@ -1,19 +1,23 @@
-import { Description, Field, Input, Label, Select, Textarea } from "@headlessui/react";
+import { Description, Field, Label } from "@headlessui/react";
 import { useFormContext } from "react-hook-form";
 import type { FieldSetup } from "../../types/field";
+import RFSelect from "./components/RFSelect";
+import RFTextField from "./components/RFTextField";
+import RFTextArea from "./components/RFTextArea";
+import RFCheckbox from "./components/RFCheckbox";
 
 export type RFFieldProps = {
   label: string;
   name: string;
 } & FieldSetup;
 
-export default function RFField({ variant, label, name, options, rows = 3, cols, allowResize = true }: RFFieldProps) {
+export default function RFField({ variant, label, name, allowResize, ...rest }: RFFieldProps) {
   const {
-    register,
     formState: { errors },
   } = useFormContext();
 
   const fieldClasses = ["rounded", "w-full", "border", "outline-none"];
+  const fieldWrapperClasses = ["flex"];
 
   if (variant !== "textarea") {
     fieldClasses.push("h-[26px]");
@@ -25,6 +29,14 @@ export default function RFField({ variant, label, name, options, rows = 3, cols,
 
   if (errors[name]) {
     fieldClasses.push(...["border-red-400"]);
+  }
+
+  if (variant === "checkbox") {
+    fieldWrapperClasses.push(...["flex-row", "justify-center", "items-center", "gap-2"]);
+  }
+
+  if (variant !== "checkbox") {
+    fieldWrapperClasses.push(...["flex-col", "items-start"]);
   }
 
   function renderLabel() {
@@ -44,29 +56,23 @@ export default function RFField({ variant, label, name, options, rows = 3, cols,
     return <Description className={classes.join(" ")}>{String(errors?.[name]?.message ?? "")}</Description>;
   }
 
-  if (variant === "select") {
-    return (
-      <Field className="flex flex-col items-start">
-        {renderLabel()}
-        <Select className="rounded w-full border h-[26px]" {...register(name)}>
-          {options.map((option) => (
-            <option value={option.value} key={option.value}>
-              {option.label ?? option.value}
-            </option>
-          ))}
-        </Select>
-        {errors[name] && renderErrorMsg()}
-      </Field>
-    );
+  function renderField() {
+    switch (variant) {
+      case "input":
+        return <RFTextField name={name} fieldClasses={fieldClasses} {...rest} />;
+      case "textarea":
+        return <RFTextArea name={name} fieldClasses={fieldClasses} {...rest} />;
+      case "select":
+        return <RFSelect name={name} {...rest} />;
+      case "checkbox":
+        return <RFCheckbox name={name} {...rest} />;
+    }
   }
 
   return (
-    <Field className="flex flex-col items-start">
+    <Field className={fieldWrapperClasses.join(" ")}>
       {renderLabel()}
-      {variant === "input" && <Input {...register(name)} className={fieldClasses.join(" ")} type="text" />}
-      {variant === "textarea" && (
-        <Textarea {...register(name)} className={fieldClasses.join(" ")} rows={rows} cols={cols} />
-      )}
+      {renderField()}
       {errors[name] && renderErrorMsg()}
     </Field>
   );
