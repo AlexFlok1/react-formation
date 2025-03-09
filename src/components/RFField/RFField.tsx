@@ -5,6 +5,7 @@ import RFSelect from "./components/RFSelect";
 import RFTextField from "./components/RFTextField";
 import RFTextArea from "./components/RFTextArea";
 import RFCheckbox from "./components/RFCheckbox";
+import RFSwitch from "./components/RFSwitch";
 
 export type RFFieldProps = {
   label: string;
@@ -59,13 +60,15 @@ export default function RFField({ variant, label, name, allowResize, ...rest }: 
   function renderField() {
     switch (variant) {
       case "input":
-        return <RFTextField name={name} fieldClasses={fieldClasses} {...rest} />;
+        return <RFTextField name={name} fieldClasses={fieldClasses} {...(rest as Extract<FieldSetup, { variant: "input" }>)} />;
       case "textarea":
-        return <RFTextArea name={name} fieldClasses={fieldClasses} {...rest} />;
+        return <RFTextArea name={name} fieldClasses={fieldClasses} {...(rest as Extract<FieldSetup, { variant: "textarea" }>)} />;
       case "select":
-        return <RFSelect name={name} fieldClasses={fieldClasses} {...rest} />;
+        return <RFSelect name={name} fieldClasses={fieldClasses} {...(rest as Extract<FieldSetup, { variant: "select" }>)} />;
       case "checkbox":
-        return <RFCheckbox name={name} {...rest} />;
+        return <RFCheckbox name={name} {...(rest as Extract<FieldSetup, { variant: "checkbox" }>)} />;
+      case "switch":
+        return <RFSwitch name={name} {...(rest as Extract<FieldSetup, { variant: "switch" }>)} />;
     }
   }
 
