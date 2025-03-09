@@ -6,7 +6,7 @@ export type RFSubmitProps = {
 
 export default function RFSubmit({ label = "Submit" }: RFSubmitProps) {
   return (
-    <Button className="mt-2" type="submit">
+    <Button className="mt-2 p-2" type="submit">
       {label}
     </Button>
   );

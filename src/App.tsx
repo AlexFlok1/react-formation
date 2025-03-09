@@ -51,6 +51,11 @@ function App() {
                 name: "test5",
                 label: "Test5",
               },
+              {
+                variant: "switch",
+                name: "test7",
+                label: "Test7",
+              },
             ],
           },
         ]}

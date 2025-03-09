@@ -13,7 +13,7 @@ type StringValidation = {
   matches?: RegExp;
 } & GeneralValidation;
 
-type FieldVariant = "input" | "textarea" | "select" | "number" | "date" | "switch" | "checkbox";
+type FieldVariant = "input" | "textarea" | "select" | "number" | "date" | "switch" | "checkbox" | "switch";
 
 type RFFieldProps = {
   name: string;
@@ -23,7 +23,7 @@ type RFFieldProps = {
 type FieldSetup =
   | {
       variant: "input";
-      defaultValie?: string;
+      defaultValue?: string;
       validation?: StringValidation;
       rows?: never;
       cols?: never;
@@ -32,7 +32,8 @@ type FieldSetup =
     }
   | {
       variant: "textarea";
-      defaultValie?: string;
+      defaultValue?: string;
+      checked?: never;
       validation?: StringValidation;
       rows?: number;
       cols?: number;
@@ -41,7 +42,8 @@ type FieldSetup =
     }
   | {
       variant: "select";
-      defaultValie?: string;
+      defaultValue?: string;
+      checked?: never;
       validation?: StringValidation;
       rows?: never;
       cols?: never;
@@ -51,7 +53,18 @@ type FieldSetup =
   | {
       variant: "checkbox";
       validation?: GeneralValidation;
-      defaultValie?: boolean;
+      defaultValue?: boolean;
+      checked?: never;
+      rows?: never;
+      cols?: never;
+      allowResize?: never;
+      options?: never;
+    }
+  | {
+      variant: "switch";
+      validation?: GeneralValidation;
+      checked?: boolean;
+      defaultValue?: never;
       rows?: never;
       cols?: never;
       allowResize?: never;
